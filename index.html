@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dodge Catálogo</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <header class="header">
+        <div class="logo">DODGE</div>
+        <nav class="menu">
+            <a href="#">Menu</a>
+            <a href="#">Modelos</a>
+            <a href="#">Soporte</a>
+        </nav>
+        <div class="icono-carrito" onclick="abrirCarrito()">
+            🛒 <span id="contador-carrito">0</span>
+        </div>
+    </header>
+
+    <main class="contenedor-principal">
+        
+        <section class="seccion-producto">
+            <div class="bloque-visual">
+                <img id="foto-auto-101" src="carro1.png" alt="Dodge Charger">
+                <div class="controles-foto">
+                    <button onclick="cambiarColor(101, 'Gris', 'carro1.png')">GRIS</button>
+                    <button onclick="cambiarColor(101, 'Blanco', 'carro2.jpg')">BLANCO</button>
+                </div>
+            </div>
+
+            <div class="bloque-detalles">
+                <span class="subtitulo">SUPERCHARGED SRT</span>
+                <h1>Dodge Charger SRT Hellcat</h1>
+                <p class="precio-pantalla">Precio Total: $<span id="precio-dinamico-101">85000</span></p>
+                <hr>
+
+                <p class="etiqueta-opcion"><b>1. Selecciona el Paquete:</b></p>
+                <div class="grupo-botones">
+                    <button id="btn-pkg-std-101" class="btn-opcion seleccionado" onclick="seleccionarPaquete(101, 1)">1. Hellcat Estándar (717 hp): Motor base supercargador 2.4L.</button>
+                    <button id="btn-pkg-jb-101" class="btn-opcion" onclick="seleccionarPaquete(101, 2)">2. Hellcat Redeye (797+ hp): Supercargador 2.7L (+ $5000)</button>
+                </div>
+
+                <p class="etiqueta-opcion"><b>2. Cantidad de vehículos:</b></p>
+                <div class="control-cantidad">
+                    <button onclick="modificarCantidad(101, -1)">-</button>
+                    <span id="visor-cantidad-101">1</span>
+                    <button onclick="modificarCantidad(101, 1)">+</button>
+                </div>
+
+                <button id="btn-agregar-car-101" class="btn-principal-agregar" onclick="procesarBotonCarrito(101)">
+                    AGREGAR AL CARRITO
+                </button>
+            </div>
+        </section>
+
+        <section class="seccion-producto">
+            <div class="bloque-visual">
+                <img id="foto-auto-102" src="carro3.jpg" alt="Dodge Durango">
+                <div class="controles-foto">
+                    <button onclick="cambiarColor(102, 'Gris', 'carro3.jpg')">GRIS</button>
+                    <button onclick="cambiarColor(102, 'Blanco', 'carro4.jpg')">BLANCO</button>
+                </div>
+            </div>
+
+            <div class="bloque-detalles">
+                <span class="subtitulo">Version Antigua</span>
+                <h1>Dodge Challenger SRT Hellcat.</h1>
+                <p class="precio-pantalla">Precio Total: $<span id="precio-dinamico-102">96000</span></p>
+                <hr>
+
+                <p class="etiqueta-opcion"><b>1. Selecciona el Paquete:</b></p>
+                <div class="grupo-botones">
+                    <button id="btn-pkg-std-102" class="btn-opcion seleccionado" onclick="seleccionarPaquete(102, 1)">1. Hellcat "Estándar": Tiene entre 707 y 717 caballos de fuerza.</button>
+                    <button id="btn-pkg-jb-102" class="btn-opcion" onclick="seleccionarPaquete(102, 2)">2. Hellcat Redeye: Utiliza el motor mejorado del Demon, elevando la potencia hasta los 797 caballos de fuerza. (+ $5000)</button>
+                </div>
+
+                <p class="etiqueta-opcion"><b>2. Cantidad de vehículos:</b></p>
+                <div class="control-cantidad">
+                    <button onclick="modificarCantidad(102, -1)">-</button>
+                    <span id="visor-cantidad-102">1</span>
+                    <button onclick="modificarCantidad(102, 1)">+</button>
+                </div>
+
+                <button id="btn-agregar-car-102" class="btn-principal-agregar" onclick="procesarBotonCarrito(102)">
+                    AGREGAR AL CARRITO
+                </button>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="footer">
+        <p>Dodge © 2026</p>
+    </footer>
+
+    <div id="modal-carrito" class="capa-modal">
+        <div class="ventana-blanca">
+            <div class="tache-cerrar" onclick="cerrarCarrito()">X</div>
+            <h3>Tu Orden Seleccionada</h3>
+            <hr>
+            <div id="elementos-carrito"></div>
+            <h4>Total Estimado: $<span id="total-carrito">0</span></h4>
+            <button class="btn-proceder-pago" onclick="pasarAlWizard()">Proceder al pago</button>
+        </div>
+    </div>
+
+    <div id="modal-wizard" class="capa-modal">
+        <div class="ventana-oscura">
+            <div class="tache-cerrar" onclick="cerrarWizard()">X</div>
+            
+            <div class="indicador-pasos">
+                <div class="bola activa" id="b1">1</div>
+                <div class="linea"></div>
+                <div class="bola" id="b2">2</div>
+                <div class="linea"></div>
+                <div class="bola" id="b3">3</div>
+                <div class="linea"></div>
+                <div class="bola" id="b4">4</div>
+            </div>
+            <p class="texto-oro central" id="nombre-etapa">Resumen</p>
+
+            <div id="fase-1" class="fase-bloque">
+                <h3>Verificación de Monto</h3>
+                <div id="resumen-autos"></div>
+                <h4 class="texto-oro">Total de la Operación: $<span id="monto-final-wizard">0</span></h4>
+                <button class="btn-oro-siguiente" onclick="cambiarFase(2)">Siguiente ➜</button>
+            </div>
+
+            <div id="fase-2" class="fase-bloque" style="display: none;">
+                <h3>Información de Facturación</h3>
+                <label for="txt-nombre">Nombre Completo:</label>
+                <input type="text" id="txt-nombre" placeholder="Mínimo 3 caracteres">
+                
+                <label for="txt-correo">Correo Electrónico:</label>
+                <input type="text" id="txt-correo" placeholder="correo@ejemplo.com">
+                
+                <label for="txt-direccion">Dirección de Entrega:</label>
+                <input type="text" id="txt-direccion" placeholder="Calle, Número, Ciudad">
+                
+                <div class="navegacion-botones">
+                    <button class="btn-retroceder" onclick="cambiarFase(1)">Atrás</button>
+                    <button class="btn-oro-siguiente" onclick="validarPaso2()">Siguiente ➜</button>
+                </div>
+            </div>
+
+            <div id="fase-3" class="fase-bloque" style="display: none;">
+                <h3>Selección de Método</h3>
+                <div class="radios-contenedor">
+                    <input type="radio" name="metodo" id="tarjeta" checked>
+                    <label for="tarjeta">Tarjeta de Crédito</label>
+                    <br><br>
+                    <input type="radio" name="metodo" id="cheques">
+                    <label for="cheques">Efectivo</label>
+                </div>
+
+                <div id="bloque-inputs-tarjeta" class="campos-tarjeta-caja">
+                    <br>
+                    <label for="txt-tarjeta">Número de Tarjeta:</label>
+                    <input type="text" id="txt-tarjeta">
+                    <label for="txt-vence">Vencimiento (MM/AA):</label>
+                    <input type="text" id="txt-vence" placeholder="12/28">
+                    <label for="txt-cvv">Código CVV:</label>
+                    <input type="text" id="txt-cvv">
+                </div>
+
+                <div class="navegacion-botones">
+                    <button class="btn-retroceder" onclick="cambiarFase(2)">Atrás</button>
+                    <button class="btn-oro-siguiente" onclick="validarPaso3()">Siguiente ➜</button>
+                </div>
+            </div>
+
+            <div id="fase-4" class="fase-bloque" style="display: none;">
+                <h3>Revisión Final de Orden</h3>
+                <p><b>Cliente:</b> <span id="lbl-nombre"></span></p>
+                <p><b>Destino:</b> <span id="lbl-direccion"></span></p>
+                <p><b>Vía de Pago:</b> <span id="lbl-metodo"></span></p>
+                <h4 class="texto-oro">Monto de Cierre: $<span id="lbl-total"></span></h4>
+                
+                <div class="navegacion-botones">
+                    <button class="btn-retroceder" onclick="cambiarFase(3)">Atrás</button>
+                    <button class="btn-oro-siguiente" onclick="ejecutarCompraFinal()">Confirmar transferencia</button>
+                </div>
+            </div>
+
+            <div id="fase-exito" class="fase-bloque" style="display: none; text-align: center;">
+                <h2 style="color: var(--color-oro-brillante);">✓ Orden Procesada</h2>
+                <p>Tu coche Dodge ha sido reservado en la planta de ensamble.</p>
+                <button class="btn-oro-siguiente" style="float:none; margin: 20px auto; display:block;" onclick="finalizarSistema()">Terminar</button>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
