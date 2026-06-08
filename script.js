@@ -1,7 +1,7 @@
 // ARRAY BASE DE BASE DE DATOS
 const baseVehiculos = [
-    { id: 101, nombre: "Dodge Charger SRT Hellcat Widebody", precio: 85000 },
-    { id: 102, nombre: "Dodge Durango SRT Hellcat Premium", precio: 96000 }
+    { id: 101, nombre: "Dodge Charger SRT Hellcat", precio: 85000 },
+    { id: 102, nombre: "Dodge Challenger SRT Hellcat.", precio: 96000 }
 ];
 
 let carrito = [];
@@ -91,7 +91,7 @@ function actualizarDatosDeInterfaz() {
     let conteoElementos = carrito.reduce(function(acc, item) { return acc + item.cantidad; }, 0);
     document.getElementById("contador-carrito").innerText = conteoElementos;
 
-    // 2. Render de lista en modal blanco
+    // Render de lista en modal blanco
     const visualLista = document.getElementById("elementos-carrito");
     visualLista.innerHTML = "";
 
@@ -195,7 +195,7 @@ function validarPaso3() {
 
     document.getElementById("lbl-nombre").innerText = document.getElementById("txt-nombre").value;
     document.getElementById("lbl-direccion").innerText = document.getElementById("txt-direccion").value;
-    document.getElementById("lbl-metodo").innerText = usaTarjeta ? "Tarjeta de Crédito SRT" : "Cuenta de Cheques Corporativa";
+    document.getElementById("lbl-metodo").innerText = usaTarjeta ? "Tarjeta de Crédito SRT" : "Efectivo";
     document.getElementById("lbl-total").innerText = calcularTotal();
 
     cambiarFase(4);
@@ -203,7 +203,7 @@ function validarPaso3() {
 
 // LISTENERS RADIOS
 const radioTarjeta = document.querySelector("#tarjeta");
-const radioChecks  = document.querySelector("#cheques");
+const radioChecks  = document.querySelector("#Efectivo");
 const divCamposTarjeta = document.querySelector("#bloque-inputs-tarjeta");
 
 radioTarjeta.addEventListener("change", function() { divCamposTarjeta.style.display = "block"; });
